@@ -5,16 +5,18 @@ import Post from './Post';
 
 import posts from './posts';
 
-export default function PostsList() {
+export default function PostsList({ data }) {
   return (
     <Container>
-      {posts.map((post) => (
+      <div class='stage'>
+      {data.map((post) => (
         <Post
           key={post.id}
           title={post.title}
           description={post.description}
         />
       ))}
+      </div>
     </Container>
   );
 }

@@ -7,3 +7,5 @@ ReactDOM.render(
   <App />,
   document.getElementById('root'),
 );
+//DESAFIOS IMPLEMENTAR UM CONTEXTO PRA NÃO PASSAR O THEMAS VIA PROPS;
+//SALVAR O TEMA NO LOCALSTORAGE
