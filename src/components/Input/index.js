@@ -7,15 +7,21 @@ export default function Input({ createPost }){
     const handleInput = (event) =>{
         const iValue = event.target.value;
         if(iValue.length <= 70){
-        setInputVal(iValue)
+            setInputVal(iValue)
         }else{
             return;
         }
     }
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+          createPost(inputVal);
+          setInputVal(""); 
+        }
+      };
 
     const submitButton = () => {
         createPost(inputVal);
-        setInputVal('');
+        setInputVal("");
     }
 
     return <Container>
@@ -25,6 +31,7 @@ export default function Input({ createPost }){
         name='postName'
         onChange={handleInput}
         value={inputVal}
+        onKeyDown={handleKeyDown}
          />
         <button type="submit" onClick={submitButton}>🔍</button>
     </Container>

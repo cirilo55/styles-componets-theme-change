@@ -2,14 +2,18 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export default function Post({ title, description }) {
+export default function Post({ description, completePost, deletePost, id, completed}) {
+
+
   return (
     <Container>
       <div className='complete'>
-        <span className="dot"></span>
+      {completed ? <span className='dotblack'></span> :<span className="dot" onClick={() =>completePost(id)}></span>}
       </div>
-      <h2>{description}</h2>
-      <div className='delete'>❌</div>
+
+      {completed ? <h2 className='completed'><s>{description}</s></h2> : <h2>{description}</h2>}
+
+      <div className='delete' onClick={() => deletePost(id)}>❌</div>
     </Container>
   );
 }

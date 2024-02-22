@@ -3,13 +3,12 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from './styles/global';
 import Layout from './components/Layout';
-import postsD from './components/PostsList/posts';
 
 import themes from './styles/themes';
 
 function App() {
   const [theme, setTheme] = useState('dark');
-  const [posts, setPosts] = useState(postsD);
+  const [posts, setPosts] = useState([]);
   const firstRender = useRef(true);
  
   //hooks de temas.
@@ -28,7 +27,6 @@ function App() {
     setPosts((prevState) =>[...prevState, 
       {
           id: Math.random(),
-          title: `Title#0${posts.length+1}`,
           description: description,
           completed: false
 
@@ -38,18 +36,17 @@ function App() {
 
   function completePost(postId)
   {
-    setPosts((prevState) => prevState.map(
-      post => (post.id === postId
+    setPosts((prevState) => prevState.map(post => (post.id === postId ? {...post, completed:true } : post)));
+  }
 
-      ? {...post, completed:true }
-      : post
-      )
-  )
-  );
+  function deletePost(postId)
+  {
+    setPosts((prevState) => prevState.filter(post => post.id !== postId));
   }
 
   //salvando no localstorage
   useEffect(() =>{
+
     if(firstRender.current){
       firstRender.current = false;
       return;
@@ -58,12 +55,22 @@ function App() {
     localStorage.setItem('theme', JSON.stringify(theme));
   }, [theme]);
 
+  useEffect(() =>{
+    console.log(posts);
+    if(!posts)
+    {
+      setPosts([])
+    }
+  },[posts])
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <Layout onToggleTheme={toogleTheme} 
               selectedTheme={theme}
               createPost={createPost}
+              completePost={completePost}
+              deletePost={deletePost}
               data={posts}
       />
     </ThemeProvider>

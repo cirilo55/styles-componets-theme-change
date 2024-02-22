@@ -5,7 +5,7 @@ import PostsList from '../PostsList';
 import InputC from '../Input';
 import Footer from '../Footer';
 
-export default function Layout({ onToggleTheme, selectedTheme, createPost, data }) {
+export default function Layout({ onToggleTheme, selectedTheme, createPost, data, completePost, deletePost }) {
   const theme = useTheme();
 
   return (
@@ -19,6 +19,9 @@ export default function Layout({ onToggleTheme, selectedTheme, createPost, data 
       />
       <PostsList 
         data={data}
+        completePost={completePost}
+        deletePost={deletePost}
+
       />
       <Footer
         onToggleTheme={onToggleTheme}

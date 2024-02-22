@@ -3,19 +3,21 @@ import React from 'react';
 import { Container } from './styles';
 import Post from './Post';
 
-import posts from './posts';
 
-export default function PostsList({ data }) {
+export default function PostsList({ data , completePost, deletePost }) {
   return (
     <Container>
-      <div class='stage'>
-      {data.map((post) => (
+      <div className='stage'>
+      {data ? data.map((post) => (
         <Post
           key={post.id}
-          title={post.title}
+          id={post.id}
+          completed={post.completed}
           description={post.description}
+          completePost={completePost}
+          deletePost={deletePost}
         />
-      ))}
+      )): ''}
       </div>
     </Container>
   );
