@@ -10,71 +10,87 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [posts, setPosts] = useState([]);
   const firstRender = useRef(true);
- 
-  //hooks de temas.
+  
+  //
+  // Hook de temas.
+  //
   const currentTheme = useMemo(() => {
     return themes[theme] || themes.dark;
   }, [theme]);
 
-  function toogleTheme()
-  {
-    setTheme(PrevState => PrevState=== 'dark' ? 'light' : 'dark')
+  // Função para alternar o tema.
+  function toggleTheme() {
+    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
   }
 
-  //hook de posts;
-  function createPost(description)
-  {
-    setPosts((prevState) =>[...prevState, 
+  //
+  // Hook de Posts
+  //
+  // Hook para criar um novo post.
+  function createPost(description) {
+    setPosts(prevPosts => [
+      ...prevPosts, 
       {
-          id: Math.random(),
-          description: description,
-          completed: false
-
+        id: Math.random(),
+        description: description,
+        completed: false
       }
-      ])
+    ]);
   }
 
-  function completePost(postId)
-  {
-    setPosts((prevState) => prevState.map(post => (post.id === postId ? {...post, completed:true } : post)));
+  // Hook para marcar um post como completo.
+  function completePost(postId) {
+    setPosts(prevPosts => prevPosts.map(post => 
+      post.id === postId ? { ...post, completed: true } : post
+    ));
   }
 
-  function deletePost(postId)
-  {
-    setPosts((prevState) => prevState.filter(post => post.id !== postId));
+  // Hook para excluir um post.
+  function deletePost(postId) {
+    setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
   }
 
-  //salvando no localstorage
-  useEffect(() =>{
-
-    if(firstRender.current){
-      firstRender.current = false;
-      return;
+  // Salvando no localStorage
+  useEffect(() => {
+    if (!firstRender.current) {
+      localStorage.setItem('theme', JSON.stringify(theme));
     }
-
-    localStorage.setItem('theme', JSON.stringify(theme));
   }, [theme]);
 
-  useEffect(() =>{
-    console.log(posts);
-    if(!posts)
-    {
-      setPosts([])
+  useEffect(() => {
+    if (!firstRender.current) {
+      localStorage.setItem('posts', JSON.stringify(posts));
     }
-  },[posts])
+  }, [posts]);
+
+  // Carregando os dados salvos do localStorage ao iniciar o aplicativo
+  useEffect(() => {
+    const savedTheme = JSON.parse(localStorage.getItem('theme'));
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
+    const savedPosts = JSON.parse(localStorage.getItem('posts'));
+    if (savedPosts) {
+      setPosts(savedPosts);
+    }
+
+    firstRender.current = false;
+  }, []);
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <Layout onToggleTheme={toogleTheme} 
-              selectedTheme={theme}
-              createPost={createPost}
-              completePost={completePost}
-              deletePost={deletePost}
-              data={posts}
+      <Layout 
+        onToggleTheme={toggleTheme} 
+        selectedTheme={theme}
+        createPost={createPost}
+        completePost={completePost}
+        deletePost={deletePost}
+        data={posts}
       />
     </ThemeProvider>
   );
-};
+}
 
 export default App;
