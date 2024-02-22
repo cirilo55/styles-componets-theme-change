@@ -25,14 +25,18 @@ export default function Input({ createPost }){
     }
 
     return <Container>
-        <input 
-        type='text' 
-        placeholder="Create a new to do" 
-        name='postName'
-        onChange={handleInput}
-        value={inputVal}
-        onKeyDown={handleKeyDown}
-         />
-        <button type="submit" onClick={submitButton}>🔍</button>
+        <div className="hover">
+            <div className="dot">
+
+            </div>
+            <input 
+            type='text' 
+            placeholder="Create a new to do" 
+            name='postName'
+            onChange={handleInput}
+            value={inputVal}
+            onKeyDown={handleKeyDown}
+            />
+        </div>
     </Container>
 }

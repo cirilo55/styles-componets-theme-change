@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  background: ${({ theme }) => theme.secondaryBackground };
-  height: 100px;
-  display: flex;
-  align-items: center;
+  height: 20%;
   padding: 0 24px;
   border-radius: 10px;
-  justify-content: space-between;
-
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  .title{
+    display: flex;
+    justify-content: space-between;
+    width: 25%;
+  }
   button {
     font-size: 16px;
-    cursor: pointer;
     cursor: pointer;
     background: transparent;
     border: none;

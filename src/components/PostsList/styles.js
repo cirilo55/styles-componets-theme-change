@@ -8,6 +8,6 @@ export const Container = styled.section`
   align-items: center;
 
   .stage{
-    width: 60%;
+    width: 30%;
   }
 `;

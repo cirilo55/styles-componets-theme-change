@@ -4,16 +4,11 @@ import { Container } from './styles';
 
 const currentYear = new Date().getFullYear();
 
-export default function Footer({ onToggleTheme, selectedTheme }) {
+export default function Footer() {
   return (
     <Container>
-      <span>Cid's Blog. Todos os direitos reservados {currentYear}.</span>
-      <button 
-      type="button"
-      onClick={onToggleTheme}
-      >
-        {selectedTheme === 'dark' ? '🌞' : '🌑' }
-      </button>
+      <span>Drag and drop to replace order</span>
+
     </Container>
   );
 }

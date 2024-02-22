@@ -18,6 +18,9 @@ export default function PostsList({ data , completePost, deletePost }) {
           deletePost={deletePost}
         />
       )): ''}
+      <div class='stage-foot'>
+
+      </div>
       </div>
     </Container>
   );

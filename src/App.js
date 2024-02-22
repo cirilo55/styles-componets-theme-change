@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from './styles/global';
 import Layout from './components/Layout';
-
+import Background from './components/Background';
 import themes from './styles/themes';
 
 function App() {
@@ -81,6 +81,7 @@ function App() {
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
+      <Background />
       <Layout 
         onToggleTheme={toggleTheme} 
         createPost={createPost}
