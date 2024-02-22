@@ -83,11 +83,12 @@ function App() {
       <GlobalStyle />
       <Layout 
         onToggleTheme={toggleTheme} 
-        selectedTheme={theme}
         createPost={createPost}
         completePost={completePost}
         deletePost={deletePost}
         data={posts}
+        selectedTheme={theme}
+
       />
     </ThemeProvider>
   );
